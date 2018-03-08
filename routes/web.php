@@ -22,3 +22,17 @@ Route::get('/', function () {
 Route::get('/hello', function () {
     return view('hello');
 });
+
+
+Route::get('/page1', function () {
+    return view('page.page1');
+});
+
+Route::get('/page2', function () {
+    return view('page.page2');
+});
+
+Route::get('/page3', function () {
+    return view('page.page3');
+});
+
