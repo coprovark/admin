@@ -1,14 +1,9 @@
 @extends('layouts.main')
 
-@session('title','page3')
-
+@section('title', 'Page Title')
 
 @section('content')
 
+page3
 
-@include('hello')
-
-<h1>สวัสดรครับ</h1>
-
-
-@endsection('content')
+@endsection
