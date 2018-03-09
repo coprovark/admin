@@ -47,10 +47,37 @@ Route::get('/page10/{id}', function ($id) {
 	return view('page.page10',$array);
 });
 
+Route::get('/form_register', function () {
+	return view('page.form_register');
+});
+
+Route::get('/form_login', function () {
+	$array = [
+		"username" => '',
+		"password" => '',
+		"status"   => "false"
+	];
+	return view('page.form_login',$array);
+});
+
+
+
+
 
 
 #localhost:8000/page1 TO localhost:8000/page
 Route::post('/page','PageController@show');
-//Route::post('/page10','PageController@show');
+Route::post('/page11','PageController@show_password');
+
+# select post
+Route::post('/page12','PageController@show_select');
+
+
+
+# form_login
+Route::post('/form_login','PageController@form_login');
+
+
+
 
 
