@@ -52,13 +52,20 @@ Route::get('/form_register', function () {
 });
 
 Route::get('/form_login', function () {
-	$array = [
-		"username" => '',
-		"password" => '',
-		"status"   => "false"
+	$data = [
+		'users'=>[]
 	];
-	return view('page.form_login',$array);
+	return view('page.form_login',$data);
 });
+
+
+Route::get('/form_check_login', function () {
+	$data = [
+		'users'=>[]
+	];
+	return view('page.form_check_login',$data);
+});
+Route::post('/form_check_login','PageController@form_check_login');
 
 
 
@@ -76,6 +83,59 @@ Route::post('/page12','PageController@show_select');
 
 # form_login
 Route::post('/form_login','PageController@form_login');
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('/form_login2', function () {
+	$array = [
+		'username'=>'',
+		'name'    =>''
+	];
+	return view('page.form_login',$array);
+});
+
+
+Route::post('/form_login2','PageController@form_login2');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Route::get('/list_users', function () {
+// 	return view('page.list_user');
+// });
+Route::get('/list_users','UsersController@list_users');
+
+
+
+
+
+
+
+
+
 
 
 

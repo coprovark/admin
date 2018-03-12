@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Page;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller
 {
@@ -33,21 +34,60 @@ class PageController extends Controller
     }// end function show_select
 
     public function form_login(Request $res){
-        $user = "admin";
-        $pass = "1234";
-        $status = 0;
+        # ค่าที่รับมา
         $txt_name = $res->input('username'); 
         $txt_pass = $res->input('password'); 
-        if($txt_name = "admin"){
-            if($txt_pass = "1234"){
-                $status = 1;
-            }
+        # เงื่อนไขการทำงาน
+        $users = DB::select('select * from users where username = ? and password = ?',
+            [$res['username'],$res['password']]
+        );
+        foreach ($users as $value) {
+            if($txt_name == $value->username){
+                if($txt_pass == $value->password){
+                    $data['status'] = "true";
+                }
+            }           
         }
-        if($status == 1){
-            $data['status'] = "true";
-        }
-        return view('page.form_login',$data);
+        # ส่งค่าไปแสดงผล
+        return view('page.form_login',['users'=>$users]);
     }
+
+    public function form_check_login(Request $res){
+        $users = DB::select('select * from users where username = ? and password = ?',
+         [$res['username'],$res['password']]
+        );
+        return view('page.form_check_login',['users'=>$users]);
+    }
+
+
+
+
+
+    #form_login2
+    public function form_login2(Request $res){
+
+        $users = DB::table('users')->where([
+            ['username','=',$res['username']],
+            ['password','=',$res['password']]
+        ])->get();
+        $name ='';
+        foreach($users as $value){
+            $name = $value->id;
+        }
+        $res['name'] = $name;
+
+        return view('page.form_login',$res);
+    }
+
+
+
+
+
+
+
+
+
+
 
 
  
